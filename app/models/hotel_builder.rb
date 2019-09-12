@@ -66,7 +66,7 @@ class HotelBuilder
 
     [:general, :room].each do |amenity_type|
       amenity_group = @suppliers_hotel.values.reduce([]) do |amenities, hotel|
-        amenities + hotel[:amenities][amenity_type]
+        amenities.concat(hotel[:amenities][amenity_type])
       end
       @data[:amenities][amenity_type] = amenity_group.uniq { |a| a.delete(" ") }
     end
@@ -81,7 +81,7 @@ class HotelBuilder
 
     [:rooms, :site, :amenities].each do |image_type|
       image_group = @suppliers_hotel.values.reduce([]) do |images, hotel|
-        images + hotel[:images][image_type]
+        images.concat(hotel[:images][image_type])
       end
       @data[:images][image_type] = image_group.uniq { |image| image[:link] }
     end

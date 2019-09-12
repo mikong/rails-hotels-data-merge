@@ -24,7 +24,7 @@ class HotelsQuery
       C: SupplierCAdapter.new(filter_params).get_hotels,
     }
 
-    hotel_ids = suppliers_hotels.reduce([]) { |arr, (k, v)| arr + v.keys }.uniq
+    hotel_ids = suppliers_hotels.reduce([]) { |arr, (k, v)| arr.concat(v.keys) }.uniq
 
     hotel_ids.each do |hotel_id|
       # one hotel per supplier
