@@ -42,6 +42,14 @@ $ rails s
 
 Access the site on your browser at http://localhost:3000.
 
+### Endpoint
+
+The endpoint of the server is https://localhost:3000/hotels and accepts either
+`hotels` or `destination` parameter.
+
+* by destination: http://localhost:3000/hotels?destination=5432
+* by hotels: http://localhost:3000/hotels?hotels=iJhz,SjyX
+
 [ruby]: https://www.ruby-lang.org/en/documentation/installation/
 [bundler]: http://bundler.io
 [git]: https://git-scm.com/
