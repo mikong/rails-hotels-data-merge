@@ -1,54 +1,60 @@
 class SupplierCAdapter < Adapter
 
-  def id
-    @data["id"]
+  SUPPLIER_URL = URI("https://api.myjson.com/bins/j6kzm")
+
+  def get_supplier_uri
+    SUPPLIER_URL
   end
 
-  def destination_id
-    @data["destination"]
+  def id(hotel)
+    hotel["id"]
   end
 
-  def name
-    @data["name"]
+  def destination_id(hotel)
+    hotel["destination"]
   end
 
-  def location
+  def name(hotel)
+    hotel["name"]
+  end
+
+  def location(hotel)
     {
-      lat: @data["lat"],
-      lng: @data["lng"],
-      address: @data["address"],
+      lat: hotel["lat"],
+      lng: hotel["lng"],
+      address: hotel["address"],
       city: nil,
       country: nil,
     }
   end
 
-  def description
-    @data["info"]
+  def description(hotel)
+    hotel["info"]
   end
 
-  def amenities
+  def amenities(hotel)
     {
-      general: @data["amenities"],
+      general: hotel["amenities"],
       room: []
     }
   end
 
-  def images
+  def images(hotel)
     {
-      rooms: extract_images("rooms"),
+      rooms: extract_images(hotel, "rooms"),
       site: [],
-      amenities: extract_images("amenities"),
+      amenities: extract_images(hotel, "amenities"),
     }
   end
 
-  def extract_images(key)
-    @data["images"][key].inject([]) do |images, metadata|
+  def extract_images(hotel, key)
+    hotel["images"][key].inject([]) do |images, metadata|
       images << { link: metadata["url"], description: metadata["description"] }
       images
     end    
   end
 
-  def booking_conditions
+  def booking_conditions(hotel)
     []
   end
 end

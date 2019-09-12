@@ -1,39 +1,45 @@
 class SupplierAAdapter < Adapter
 
-  def id
-    @data["Id"]
+  SUPPLIER_URL = URI("https://api.myjson.com/bins/gdmqa")
+
+  def get_supplier_uri
+    SUPPLIER_URL
   end
 
-  def destination_id
-    @data["DestinationId"]
+  def id(hotel)
+    hotel["Id"]
   end
 
-  def name
-    @data["Name"]
+  def destination_id(hotel)
+    hotel["DestinationId"]
   end
 
-  def location
+  def name(hotel)
+    hotel["Name"]
+  end
+
+  def location(hotel)
     {
-      lat: @data["Latitude"],
-      lng: @data["Longitude"],
-      address: @data["Address"],
-      city: @data["City"],
-      country: country_code_to_country(@data["Country"]),
+      lat: hotel["Latitude"],
+      lng: hotel["Longitude"],
+      address: hotel["Address"],
+      city: hotel["City"],
+      country: country_code_to_country(hotel["Country"]),
     }
   end
 
-  def description
-    @data["Description"]
+  def description(hotel)
+    hotel["Description"]
   end
 
-  def amenities
+  def amenities(hotel)
     {
-      general: @data["Facilities"],
+      general: hotel["Facilities"],
       room: []
     }
   end
 
-  def images
+  def images(hotel)
     {
       rooms: [],
       site: [],
@@ -41,7 +47,7 @@ class SupplierAAdapter < Adapter
     }
   end
 
-  def booking_conditions
+  def booking_conditions(hotel)
     []
   end
 

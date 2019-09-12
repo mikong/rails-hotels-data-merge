@@ -1,54 +1,60 @@
 class SupplierBAdapter < Adapter
 
-  def id
-    @data["hotel_id"]
+  SUPPLIER_URL = URI("https://api.myjson.com/bins/1fva3m")
+
+  def get_supplier_uri
+    SUPPLIER_URL
   end
 
-  def destination_id
-    @data["destination_id"]
+  def id(hotel)
+    hotel["hotel_id"]
   end
 
-  def name
-    @data["hotel_name"]
+  def destination_id(hotel)
+    hotel["destination_id"]
   end
 
-  def location
+  def name(hotel)
+    hotel["hotel_name"]
+  end
+
+  def location(hotel)
     {
       lat: nil,
       lng: nil,
-      address: @data["location"]["address"],
+      address: hotel["location"]["address"],
       city: nil,
-      country: @data["location"]["country"],
+      country: hotel["location"]["country"],
     }
   end
 
-  def description
-    @data["details"]
+  def description(hotel)
+    hotel["details"]
   end
 
-  def amenities
+  def amenities(hotel)
     {
-      general: @data["amenities"]["general"],
-      room: @data["amenities"]["room"],
+      general: hotel["amenities"]["general"],
+      room: hotel["amenities"]["room"],
     }
   end
 
-  def images
+  def images(hotel)
     {
-      rooms: extract_images("rooms"),
-      site: extract_images("site"),
+      rooms: extract_images(hotel, "rooms"),
+      site: extract_images(hotel, "site"),
       amenities: [],
     }
   end
 
-  def extract_images(key)
-    @data["images"][key].inject([]) do |images, metadata|
+  def extract_images(hotel, key)
+    hotel["images"][key].inject([]) do |images, metadata|
       images << { link: metadata["link"], description: metadata["caption"] }
       images
     end    
   end
 
-  def booking_conditions
-    @data["booking_conditions"]
+  def booking_conditions(hotel)
+    hotel["booking_conditions"]
   end
 end
