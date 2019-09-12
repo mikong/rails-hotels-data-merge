@@ -68,11 +68,11 @@ class HotelBuilder
   def populate_images
     @data[:images] = {}
 
-    [:rooms, :site, :amenities].each do |key|
-      all_images_by_key = @suppliers_hotel.values.reduce([]) do |arr, hotel|
-        arr + hotel[:images][key]
+    [:rooms, :site, :amenities].each do |image_type|
+      image_group = @suppliers_hotel.values.reduce([]) do |images, hotel|
+        images + hotel[:images][image_type]
       end
-      @data[:images][key] = all_images_by_key.uniq {|image_hash| image_hash[:link]}
+      @data[:images][image_type] = image_group.uniq { |image| image[:link] }
     end
   end
 end
