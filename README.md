@@ -1,24 +1,47 @@
-# README
+# Hotels Data Merge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hotels Data Merge is a programming exercise implemented with an API Rails app.
 
-Things you may want to cover:
+## Local Setup
 
-* Ruby version
+### Ruby version
 
-* System dependencies
+This application requires [Ruby][ruby] (MRI) 2.5.6.
 
-* Configuration
+For Ruby gem installation, make sure you have [bundler][bundler] installed.
+Rails 5.2.3 requires Bundler >= 1.3.0.
 
-* Database creation
+```bash
+$ gem install bundler
+```
 
-* Database initialization
+### Other requirements
 
-* How to run the test suite
+* [Git][git]
 
-* Services (job queues, cache servers, search engines, etc.)
+### Getting Started
 
-* Deployment instructions
+Checkout the project with git:
 
-* ...
+```bash
+$ git clone git@github.com:mikong/rails-hotels-data-merge.git
+```
+
+Install gems:
+
+```bash
+$ cd /path/to/project/rails-hotels-data-merge
+$ bundle install
+```
+
+Start the Rails server:
+
+```bash
+$ rails s
+```
+
+Access the site on your browser at http://localhost:3000.
+
+[ruby]: https://www.ruby-lang.org/en/documentation/installation/
+[bundler]: http://bundler.io
+[git]: https://git-scm.com/
