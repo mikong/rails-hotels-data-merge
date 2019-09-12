@@ -53,7 +53,6 @@ class SupplierAAdapter < Adapter
 
   # TODO: Move to a separate class
   def country_code_to_country(code)
-    # TODO: Implement country code to country
-    "Singapore"
+    ISO3166::Country.new(code).try(:name)
   end
 end
