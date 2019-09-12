@@ -71,6 +71,63 @@ the Supplier.
   * `If-Modified-Since` and `Last-Modified` headers can easily be supported in
   the application if an expiration mechanism is defined.
 
+## Data Merging Strategy
+
+### Prioritizing Suppliers
+
+For the following fields:
+
+* `id`
+* `destination_id`
+* `name`
+* `location`
+  * `lat`
+  * `lng`
+  * `address`
+  * `city`
+  * `country`
+* `description`
+* `booking_conditions`
+
+a priorities hash defines which suppliers to prioritize:
+
+```ruby
+# from app/models/hotel_builder.rb:
+
+  PRIORITIES = {
+    id: [:A, :B, :C],
+    destination_id: [:A, :B, :C],
+    name: [:C, :B, :A],
+    description: [:B, :A],
+    booking_conditions: [:B],
+  }
+
+  LOCATION_PRIORITIES = {
+    lat: [:C, :A, :B],
+    lng: [:C, :A, :B],
+    address: [:B, :A, :C],
+    city: [:A],
+    country: [:B, :A],
+  }
+```
+
+The Suppliers are identified as A, B, and C, and the existence of the value is
+checked in order of priority. The first value obtained is used.
+
+### Amenities
+
+For Amenities, if a supplier has not categorized its amenities by Room or
+General, these are initially assumed to be General by default. The amenities
+from all suppliers are then combined. Any duplicate amenities within each
+category are removed. Finally, General amenities are compared with Room
+amenities. If a General amenity is present in the Room amenities, it is removed
+from the General category.
+
+### Images
+
+For images, all images from all suppliers are collected. Duplicates are removed
+by comparing the URL of the images.
+
 [ruby]: https://www.ruby-lang.org/en/documentation/installation/
 [bundler]: http://bundler.io
 [git]: https://git-scm.com/
