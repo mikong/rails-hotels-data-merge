@@ -22,19 +22,19 @@ class SupplierAAdapter < Adapter
     {
       lat: hotel["Latitude"],
       lng: hotel["Longitude"],
-      address: hotel["Address"],
+      address: hotel["Address"].try(:strip),
       city: hotel["City"],
       country: country_code_to_country(hotel["Country"]),
     }
   end
 
   def description(hotel)
-    hotel["Description"]
+    hotel["Description"].try(:strip)
   end
 
   def amenities(hotel)
     {
-      general: hotel["Facilities"],
+      general: hotel["Facilities"].map { |s| s.strip },
       room: []
     }
   end
