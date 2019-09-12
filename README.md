@@ -64,6 +64,7 @@ the Supplier.
 * Not implemented:
   * Cache data from Supplier to prevent Supplier request on every hotels
   request.
+  * Read timeout for API requests to Supplier wasn't added
 
 ### Delivering the data
 
