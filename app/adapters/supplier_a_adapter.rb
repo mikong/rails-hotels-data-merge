@@ -34,7 +34,7 @@ class SupplierAAdapter < Adapter
 
   def amenities(hotel)
     {
-      general: hotel["Facilities"].map { |s| s.strip },
+      general: hotel["Facilities"].map { |s| sanitize_text(s) },
       room: []
     }
   end

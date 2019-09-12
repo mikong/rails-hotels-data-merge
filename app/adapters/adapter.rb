@@ -58,4 +58,8 @@ class Adapter
     }
   end
 
+  def sanitize_text(text)
+    text.strip.titleize.downcase
+  end
+
 end
