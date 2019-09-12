@@ -21,6 +21,8 @@ class Adapter
   end
 
   def get_hotels
+    return {} if @destination_id.blank? && @hotel_ids.empty?
+
     raw_data = get_raw_data
 
     raw_hotels = if @destination_id.present?
