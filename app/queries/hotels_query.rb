@@ -1,7 +1,9 @@
 class HotelsQuery
   def initialize(params = {})
     @ids = params[:hotels] || []
-    @destination_id = params[:destination].to_i
+    @destination_id =  if params[:destination].present?
+      params[:destination].to_i
+    end
   end
 
   def filter_params
