@@ -62,7 +62,18 @@ class HotelBuilder
   end
 
   def populate_amenities
-    # TODO
+    @data[:amenities] = {}
+
+    [:general, :room].each do |amenity_type|
+      amenity_group = @suppliers_hotel.values.reduce([]) do |amenities, hotel|
+        amenities + hotel[:amenities][amenity_type]
+      end
+      @data[:amenities][amenity_type] = amenity_group.uniq { |a| a.delete(" ") }
+    end
+
+    @data[:amenities][:general].delete_if do |amenity|
+      @data[:amenities][:room].map { |a| a.delete(" ") }.include?(amenity.delete(" "))
+    end
   end
 
   def populate_images
