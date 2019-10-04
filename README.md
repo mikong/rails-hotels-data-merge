@@ -6,7 +6,7 @@ Hotels Data Merge is a programming exercise implemented with an API Rails app.
 
 ### Ruby version
 
-This application requires [Ruby][ruby] (MRI) 2.5.6.
+This application requires [Ruby][ruby] (MRI) 2.5.7.
 
 For Ruby gem installation, make sure you have [bundler][bundler] installed.
 Rails 5.2.3 requires Bundler >= 1.3.0.
