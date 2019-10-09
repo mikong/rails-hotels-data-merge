@@ -14,7 +14,7 @@ class HotelBuilder
   LOCATION_PRIORITIES = {
     lat: [:C, :A, :B],
     lng: [:C, :A, :B],
-    address: [:B, :A, :C],
+    # address: [:B, :A, :C],
     city: [:A],
     country: [:B, :A],    
   }
@@ -51,7 +51,7 @@ class HotelBuilder
 
     LOCATION_PRIORITIES.each do |field, suppliers|
       @data[:location][field] = nil
-      suppliers.each do |supplier|
+      suppliers.each do |supplier| # :B, :C, :A
         value = @suppliers_hotel.dig(supplier, :location, field)
         if value.present?
           @data[:location][field] = value
@@ -59,6 +59,15 @@ class HotelBuilder
         end
       end
     end
+
+    get_longest_address
+  end
+
+  def get_longest_address
+    @data[:location][:address] = @suppliers_hotel.values
+      .collect { |hotel| hotel[:location][:address] }
+      .compact
+      .max_by { |address| address.length }
   end
 
   def populate_amenities
